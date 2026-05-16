@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Environment (secrets)
+.env
+*.env.local
+
+# Node
+node_modules/
+build/
+dist/
+.cache/
+
+# Package lock (optional)
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+test_api.py
+test_upload.py
+test_emcure_api.py
+frontend/test_ui.js
+
+# Puppeteer
+.puppeteer/
