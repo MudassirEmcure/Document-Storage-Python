@@ -1,4 +1,10 @@
-"""Initialize database: create all tables and seed admin user."""
+"""Initialize database: create all tables, extensions, indexes, and seed admin user.
+
+Usage:
+    python init_db.py
+
+This script is idempotent — safe to run multiple times.
+"""
 
 import asyncio
 from sqlalchemy import text, select
@@ -13,21 +19,21 @@ async def init():
     # Create all tables
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    print("All tables created successfully.")
+    print("[1/3] All tables created.")
 
-    # Enable pg_trgm extension and create trigram index
+    # Enable pg_trgm extension and create trigram index for document search
     async with engine.begin() as conn:
         await conn.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm"))
         await conn.execute(text(
             "CREATE INDEX IF NOT EXISTS ix_documents_name_trgm ON documents USING gin (document_name gin_trgm_ops)"
         ))
-    print("pg_trgm extension and trigram index created.")
+    print("[2/3] pg_trgm extension and trigram index ready.")
 
     # Seed admin user
     async with AsyncSessionLocal() as db:
         result = await db.execute(select(User).where(User.username == "admin"))
         if result.scalar_one_or_none():
-            print("Admin user already exists. Skipping seed.")
+            print("[3/3] Admin user already exists. Skipping.")
         else:
             admin = User(
                 username="admin",
@@ -40,9 +46,11 @@ async def init():
             )
             db.add(admin)
             await db.commit()
-            print("Admin user created: username=admin, email=admin@emcure.com, password=1")
+            print("[3/3] Admin user created (username=admin, password=1)")
 
     print("\nDatabase initialization complete!")
+    print("  Backend: uvicorn app.main:app --reload --port 8000")
+    print("  Frontend: npm start (in frontend/)")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,13 @@
-"""Seed script: creates the initial admin user."""
+"""Seed script: creates the initial admin user.
+
+Usage:
+    python seed.py
+
+Default admin credentials:
+    username: admin
+    password: 1
+    email: admin@emcure.com
+"""
 
 import asyncio
 from app.database import AsyncSessionLocal
@@ -26,7 +35,10 @@ async def seed():
         )
         db.add(admin)
         await db.commit()
-        print(f"Admin user created: username=admin, email=admin@emcure.com, password=1")
+        print("Admin user created successfully.")
+        print("  Username: admin")
+        print("  Password: 1")
+        print("  Email:    admin@emcure.com")
 
 
 if __name__ == "__main__":
