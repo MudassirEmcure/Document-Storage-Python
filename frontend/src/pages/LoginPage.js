@@ -27,40 +27,21 @@ function LoginPage() {
   return (
     <div style={styles.page}>
       <div style={styles.card}>
-        <div style={styles.logoIcon}>DS</div>
-        <h2 style={styles.title}>Document Storage</h2>
-        <p style={styles.subtitle}>Sign in to continue</p>
+        <div style={styles.logoWrap}>
+          <span style={styles.logo}>Document Storage</span>
+        </div>
+        <p style={styles.subtitle}>Sign in to your account</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Username</label>
-            <input
-              className="form-input"
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              autoFocus
-            />
+            <input className="form-input" type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} required autoFocus />
           </div>
           <div className="form-group">
             <label className="form-label">Password</label>
-            <input
-              className="form-input"
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <input className="form-input" type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <button
-            className="btn btn-primary btn-lg"
-            type="submit"
-            disabled={loading}
-            style={{ width: '100%', justifyContent: 'center', marginTop: '0.5rem' }}
-          >
+          <button className="btn btn-primary btn-lg" type="submit" disabled={loading} style={{ width: '100%', marginTop: 'var(--space-2)' }}>
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
@@ -71,18 +52,12 @@ function LoginPage() {
           <span style={styles.dividerLine}></span>
         </div>
 
-        <button
-          className="btn btn-dark btn-lg"
-          onClick={loginWithSSO}
-          style={{ width: '100%', justifyContent: 'center' }}
-        >
+        <button className="btn btn-dark btn-lg" onClick={loginWithSSO} style={{ width: '100%' }}>
           🔐 Sign in with Microsoft SSO
         </button>
 
-        <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
-          <a href="/reset-password" style={{ color: '#c0392b', fontSize: '0.85rem', textDecoration: 'none' }}>
-            Forgot password?
-          </a>
+        <div style={{ textAlign: 'center', marginTop: 'var(--space-5)' }}>
+          <a href="/reset-password" style={{ fontSize: '12px', fontWeight: 500 }}>Forgot password?</a>
         </div>
       </div>
     </div>
@@ -95,49 +70,40 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '100vh',
-    background: '#f5f5f5',
+    background: 'var(--color-neutral-100)',
   },
   card: {
     width: '100%',
     maxWidth: '380px',
-    background: '#fff',
-    padding: '2.5rem',
-    borderRadius: '12px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    background: 'var(--color-neutral-0)',
+    padding: 'var(--space-8)',
+    borderRadius: 'var(--radius-xl)',
+    boxShadow: 'var(--shadow-md)',
+    border: '1px solid var(--color-neutral-200)',
+  },
+  logoWrap: {
     textAlign: 'center',
+    marginBottom: 'var(--space-1)',
   },
-  logoIcon: {
-    width: '50px',
-    height: '50px',
-    background: '#c0392b',
-    borderRadius: '10px',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '800',
-    fontSize: '1.2rem',
-    color: '#fff',
-    marginBottom: '1rem',
-  },
-  title: {
-    fontSize: '1.3rem',
-    fontWeight: '700',
-    color: '#2c2c2c',
-    marginBottom: '0.25rem',
+  logo: {
+    fontSize: '22px',
+    fontWeight: 800,
+    color: 'var(--color-primary)',
   },
   subtitle: {
-    fontSize: '0.85rem',
-    color: '#9e9e9e',
-    marginBottom: '1.5rem',
+    textAlign: 'center',
+    fontSize: '13px',
+    color: 'var(--color-neutral-500)',
+    marginBottom: 'var(--space-6)',
   },
   divider: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.75rem',
-    margin: '1.25rem 0',
+    gap: 'var(--space-3)',
+    margin: 'var(--space-5) 0',
   },
-  dividerLine: { flex: 1, height: '1px', background: '#eee' },
-  dividerText: { fontSize: '0.78rem', color: '#bdbdbd' },
+  dividerLine: { flex: 1, height: '1px', background: 'var(--color-neutral-200)' },
+  dividerText: { fontSize: '11px', color: 'var(--color-neutral-500)', fontWeight: 500 },
 };
 
 export default LoginPage;

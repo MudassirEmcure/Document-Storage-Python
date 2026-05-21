@@ -132,26 +132,26 @@ function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <div style={styles.statsGrid}>
-        <div style={styles.statCard}>
-          <div style={styles.statIcon}>📄</div>
+      <div className="kpi-grid">
+        <div className="kpi-card">
+          <div className="kpi-icon" style={{ background: 'var(--color-primary-50)', color: 'var(--color-primary)' }}>📄</div>
           <div>
-            <div style={styles.statNumber}>{stats.total}</div>
-            <div style={styles.statLabel}>Total Documents</div>
+            <div className="kpi-value">{stats.total}</div>
+            <div className="kpi-label">Total Documents</div>
           </div>
         </div>
-        <div style={{ ...styles.statCard, borderLeft: '4px solid #f39c12' }}>
-          <div style={styles.statIcon}>⚠️</div>
+        <div className="kpi-card">
+          <div className="kpi-icon" style={{ background: 'rgba(255,162,30,.1)', color: '#f97316' }}>⚠️</div>
           <div>
-            <div style={{ ...styles.statNumber, color: '#f39c12' }}>{stats.expiring30}</div>
-            <div style={styles.statLabel}>Expiring in 30 Days</div>
+            <div className="kpi-value" style={{ color: '#f97316' }}>{stats.expiring30}</div>
+            <div className="kpi-label">Expiring in 30 Days</div>
           </div>
         </div>
-        <div style={{ ...styles.statCard, borderLeft: '4px solid #e74c3c' }}>
-          <div style={styles.statIcon}>🚨</div>
+        <div className="kpi-card">
+          <div className="kpi-icon" style={{ background: 'rgba(239,68,68,.1)', color: 'var(--color-error)' }}>🚨</div>
           <div>
-            <div style={{ ...styles.statNumber, color: '#e74c3c' }}>{stats.expired}</div>
-            <div style={styles.statLabel}>Expired</div>
+            <div className="kpi-value" style={{ color: 'var(--color-error)' }}>{stats.expired}</div>
+            <div className="kpi-label">Expired</div>
           </div>
         </div>
       </div>
@@ -188,7 +188,7 @@ function DashboardPage() {
       {/* Drill-down Content */}
       {drillLevel === 'companies' && (
         <div>
-          <h3 style={styles.sectionTitle}>Companies ({hierarchy.length})</h3>
+          <h3 className="section-title">Companies ({hierarchy.length})</h3>
           {hierarchy.length === 0 ? (
             <div className="empty-state">
               <div className="empty-state-icon">🏢</div>
@@ -212,7 +212,7 @@ function DashboardPage() {
 
       {drillLevel === 'banks' && selectedCompany && (
         <div>
-          <h3 style={styles.sectionTitle}>Banks under {selectedCompany.name} ({selectedCompany.banks.length})</h3>
+          <h3 className="section-title">Banks under {selectedCompany.name} ({selectedCompany.banks.length})</h3>
           <div className="hierarchy-grid">
             {selectedCompany.banks.map(bank => (
               <div key={bank.id} className="hierarchy-card" onClick={() => handleBankClick(bank)}>
@@ -229,7 +229,7 @@ function DashboardPage() {
 
       {drillLevel === 'facilities' && selectedBank && (
         <div>
-          <h3 style={styles.sectionTitle}>Facilities under {selectedBank.name} ({selectedBank.facilities.length})</h3>
+          <h3 className="section-title">Facilities under {selectedBank.name} ({selectedBank.facilities.length})</h3>
           <div className="hierarchy-grid">
             {selectedBank.facilities.map(fac => (
               <div key={fac.id} className="hierarchy-card" onClick={() => handleFacilityClick(fac)}>
@@ -247,7 +247,7 @@ function DashboardPage() {
       {drillLevel === 'documents' && selectedFacility && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h3 style={styles.sectionTitle}>Documents ({filteredDocs.length})</h3>
+            <h3 className="section-title">Documents ({filteredDocs.length})</h3>
             {canUpload && (
               <Link
                 to="/documents/upload"
@@ -305,48 +305,13 @@ function DashboardPage() {
 }
 
 const styles = {
-  statsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-    gap: '1rem',
-    marginBottom: '2rem',
-  },
-  statCard: {
-    background: '#fff',
-    borderRadius: '12px',
-    padding: '1.25rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    border: '1px solid #eee',
-    borderLeft: '4px solid #c0392b',
-  },
-  statIcon: {
-    fontSize: '1.75rem',
-    width: '44px',
-    height: '44px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: '#f5f5f5',
-    borderRadius: '10px',
-  },
-  statNumber: {
-    fontSize: '1.5rem',
-    fontWeight: '800',
-    color: '#c0392b',
-    lineHeight: 1.2,
-  },
-  statLabel: {
-    fontSize: '0.78rem',
-    color: '#757575',
-    fontWeight: '500',
-  },
   sectionTitle: {
-    fontSize: '1rem',
-    fontWeight: '600',
-    color: '#2c2c2c',
-    marginBottom: '1rem',
+    fontSize: '11px',
+    fontWeight: 700,
+    color: 'var(--color-neutral-500)',
+    letterSpacing: '.12em',
+    textTransform: 'uppercase',
+    marginBottom: 'var(--space-4)',
   },
 };
 
